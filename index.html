@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <!--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js"></script>-->
+
+    <script src="read.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.5.1/dist/leaflet.css" />
+    <link rel="stylesheet" href="styles/bootstrap.min.css">
+
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.3.1/leaflet.js"></script>
+    <style>
+        #map {
+            height: 400px;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+        <a class="navbar-brand" href="#">Geo</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Features</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Pricing</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">About</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="text" placeholder="Search">
+                <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <br>
+
+    <div class="container">
+        <h1> Geo</h1>
+        <div class="row">
+
+
+            <div class="col-sm">
+                <div class="card border-primary mb-3" style="max-width: 40rem; min-height: 100%; height: 100%;">
+                    <div class="card-header">
+
+                        <form action='#' id="form">
+                            <input type="file" onchange="readFile(this)" class="btn btn-primary">
+                            <input type='submit' id='btnLoad' value='Load'>
+                        </form>
+
+                    </div>
+
+
+                    <div class="card-body">
+                        <h4 class="card-title">Charger un fichier</h4>
+                        <p class="card-text ">
+                            <div class="overflow-auto" style="margin-left:auto; margin-right:auto; height: 300px;">
+                                <div class="table-wrapper-scroll-y my-custom-scrollbar">
+                                    <table class="table table-bordered table-striped mb-0" id="table">
+                                        <thead>
+                                            <tr>
+                                                <!--Ici va afficher les données dans la table-->
+                                                <th scope="col">lon</th>
+                                                <th scope="col">lat</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                </div>
+                            </div>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-sm">
+
+                <div class="card border-primary mb-3" style="max-width: 40rem; min-height: 100%; height: 100%;">
+
+                    <div class="card-body">
+                        <h4 class="card-title">Map</h4>
+                        <p class="card-text ">
+
+                            <!--Affiche la carte-->
+                            will handke the map
+                            <div id="map"></div>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Charger un fichier</h4>
+
+
+                    <p class="card-text ">
+                        <div class="overflow-auto">
+
+                            <div id="log">
+
+                            </div>
+                        </div>
+                    </p>
+
+
+
+
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Charger un fichier</h4>
+
+
+                    <p class="card-text ">
+                        <div class="overflow-auto">
+
+                            <div id="log">
+
+                            </div>
+                        </div>
+                    </p>
+
+
+
+
+
+                </div>
+            </div>
+            <div class="col-sm">
+                <div class="card-body">
+                    <h4 class="card-title">Charger un fichier</h4>
+
+
+                    <p class="card-text ">
+                        <div class="overflow-auto">
+
+                            <div id="log">
+
+                            </div>
+                        </div>
+                    </p>
+
+                    <p class="test">salut</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        var map = L.map('map').setView([0, 0], 1);
+        L.tileLayer('https://api.maptiler.com/maps/streets/{z}/{x}/{y}.png?key=CZhoDNPVBHSRiPKPQGHH', {
+            tileSize: 512,
+            zoomOffset: -1,
+            minZoom: 1,
+            attribution: '<a href="https://www.maptiler.com/copyright/" target="_blank">© MapTiler</a> <a href="https://www.openstreetmap.org/copyright" target="_blank">© OpenStreetMap contributors</a>',
+            crossOrigin: true
+        }).addTo(map);
+
+        //var marker = L.marker([51.5, -0.09]).addTo(map);
+    </script>
+
+
+
+
+
+
+
+</body>
+
+</html>
